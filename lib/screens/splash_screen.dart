@@ -118,9 +118,9 @@ class _SplashScreenState extends State<SplashScreen>
   }
   String otpVerification = '';
   Future testingOtp()async{
-    String? testing = await otpVerificationStatus();
+    String testing = await otpVerificationStatus();
     setState(() {
-      otpVerification = testing ?? '';
+      otpVerification = testing ;
     });
   }
 
