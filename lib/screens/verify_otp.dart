@@ -44,7 +44,6 @@ class _VerifyOTPState extends State<VerifyOTP> {
     } else {
       otpVerificationDone().whenComplete(() =>
           Navigator.pushReplacement(context, PageTransition(HomeScreen())));
-
     }
   }
 
@@ -121,16 +120,15 @@ class _VerifyOTPState extends State<VerifyOTP> {
             ElevatedButton(
                 onPressed: () async {
                   print('---------button pressed------------');
-                  log('-----print not working-------------');
 
                   setState(() {
-                    verificationOTPCode(_code);
+                    // verificationOTPCode(_code);
                     // log('phoenix look here ----->>>> ${name}');
                     // otpVerificationDone().whenComplete(() => Get.off(()=> HomeScreen()));
-                    // SharedPrefService.setOtpCheck(OTP: 'true',currentUsername: name)
-                    //     .whenComplete(() => Get.off(()=> HomeScreen()));
+                    SharedPrefService.setOtpCheck(
+                            OTP: 'true', currentUsername: name)
+                        .whenComplete(() => Get.off(() => HomeScreen()));
                   });
-                  setState(() {});
                 },
                 child: Text('verify')),
           ],

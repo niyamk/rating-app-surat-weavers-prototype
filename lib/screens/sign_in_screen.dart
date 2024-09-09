@@ -3,7 +3,6 @@ import 'package:surat_weavers_new/library.dart';
 
 import 'newuserData_screen.dart';
 
-
 class GoogleSignInScreen extends StatefulWidget {
   const GoogleSignInScreen({super.key});
 
@@ -13,8 +12,8 @@ class GoogleSignInScreen extends StatefulWidget {
 
 String otpcheck = '';
 String currentuser = '';
-class _GoogleSignInScreenState extends State<GoogleSignInScreen> {
 
+class _GoogleSignInScreenState extends State<GoogleSignInScreen> {
   Future getUsername() async {
     String? username = await SharedPrefService.getUsername();
     setState(() {
@@ -22,16 +21,16 @@ class _GoogleSignInScreenState extends State<GoogleSignInScreen> {
     });
   }
 
-  Future getOtpCheck() async{
+  Future getOtpCheck() async {
     String? data = await SharedPrefService.getOtpCheck(currentUsername: user);
     setState(() {
       otpcheck = data ?? '';
-    log('otpcheck ---->>>> ${otpcheck}');
+      log('otpcheck ---->>>> ${otpcheck}');
     });
   }
 
   String otpVerification = '';
-  Future testingOtp()async{
+  Future testingOtp() async {
     String testing = await otpVerificationStatus();
     setState(() {
       otpVerification = testing;
@@ -44,33 +43,31 @@ class _GoogleSignInScreenState extends State<GoogleSignInScreen> {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
-
     Future<bool> showExitPopup() async {
-      return await showDialog( //show confirm dialogue
-        //the return value will be from "Yes" or "No" options
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text('Exit App'),
-          content: Text('Do you want to exit an App?'),
-          actions:[
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(false),
-              //return false when click on "NO"
-              child:Text('No'),
+      return await showDialog(
+            //show confirm dialogue
+            //the return value will be from "Yes" or "No" options
+            context: context,
+            builder: (context) => AlertDialog(
+              title: Text('Exit App'),
+              content: Text('Do you want to exit an App?'),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(false),
+                  //return false when click on "NO"
+                  child: Text('No'),
+                ),
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(true),
+                  //return true when click on "Yes"
+                  child: Text('Yes'),
+                ),
+              ],
             ),
-
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(true),
-              //return true when click on "Yes"
-              child:Text('Yes'),
-            ),
-
-          ],
-        ),
-      )??false; //if showDialouge had returned null, then return false
+          ) ??
+          false; //if showDialouge had returned null, then return false
     }
 
     return WillPopScope(
@@ -103,39 +100,38 @@ class _GoogleSignInScreenState extends State<GoogleSignInScreen> {
                   alignment: Alignment.center,
                   child: ElevatedButton(
                     style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Colors.white)),
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.white)),
                     onPressed: () async {
                       try {
-
-                         await signInWithGoogle().whenComplete(() => testingOtp().whenComplete(()  {
-
-                         log('isnewuser---->> ${isNewUser}');
-                             log('otpcheck---->> ${otpVerification}');
-                             SharedPrefService.setUser(username: name)
-                             .then((value) {
-                           log(' ------------- isnewuser ${isNewUser!} and otpcheck ${otpcheck} and net condition ${isNewUser! && otpcheck == ''} and name : ${name} --------------');
-                           /*   if (otpcheck == '') {
+                        await signInWithGoogle()
+                            .whenComplete(() => testingOtp().whenComplete(() {
+                                  log('isnewuser---->> ${isNewUser}');
+                                  log('otpcheck---->> ${otpVerification}');
+                                  SharedPrefService.setUser(username: name)
+                                      .then((value) {
+                                    log(' ------------- isnewuser ${isNewUser!} and otpcheck ${otpcheck} and net condition ${isNewUser! && otpcheck == ''} and name : ${name} --------------');
+                                    /*   if (otpcheck == '') {
                                   Get.off(GetData());
                                 } else {
                                   Get.off(HomeScreen());
                                 }*/
-                            testingOtp().whenComplete(() {
-                            print('phoenix jod -- $otpcheck');
-                           if (isNewUser!){
-                             // Get.off(GetData());
-
-                           }else if(otpVerification == 'nope'){
-
-                             // Get.off(GetData());
-                             Navigator.pushReplacement(context, PageTransition(GetData()));
-                           }else{
-                             // Get.off(HomeScreen());
-                             Navigator.pushReplacement(context, PageTransition(HomeScreen()));
-
-                           }
-                            });
-                         });
-                      }) );
+                                    testingOtp().whenComplete(() {
+                                      print('phoenix jod -- $otpcheck');
+                                      if (isNewUser!) {
+                                        Get.off(GetData());
+                                      } else if (otpVerification == 'aa') {
+                                        // Get.off(GetData());
+                                        Navigator.pushReplacement(
+                                            context, PageTransition(GetData()));
+                                      } else {
+                                        // Get.off(HomeScreen());
+                                        Navigator.pushReplacement(context,
+                                            PageTransition(HomeScreen()));
+                                      }
+                                    });
+                                  });
+                                }));
                       } catch (e) {
                         // Get.off(GetData());
                         print('error ===>>>> $e');

@@ -1,6 +1,10 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
+import 'firebase_auth.dart';
 
 GoogleSignIn googleSignIn = GoogleSignIn();
 
@@ -11,7 +15,7 @@ String? imageUrl;
 
 Future<String> otpVerificationStatus() async {
   String otpVerificationDone = 'nope';
-  if(kFirebase.currentUser != null) {
+  if (kFirebase.currentUser != null) {
     log('kfirebase is not null');
     final otp1 = await FirebaseFirestore.instance
         .collection('otpVerification')
@@ -24,7 +28,6 @@ Future<String> otpVerificationStatus() async {
     });
   }
   return otpVerificationDone;
-
 }
 
 Future signInWithGoogle() async {

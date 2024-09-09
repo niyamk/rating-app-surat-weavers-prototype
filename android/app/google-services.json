@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "383805320115",
+    "firebase_url": "https://surat-weavers-new-default-rtdb.firebaseio.com",
     "project_id": "surat-weavers-new",
     "storage_bucket": "surat-weavers-new.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "383805320115-3nhlpqmpapde4jb260vse8jeequhrh5c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.surat_weavers_new",
+            "certificate_hash": "dcc34046ed88228a0b1071c2377f16ed0395bbf0"
+          }
+        },
         {
           "client_id": "383805320115-sdqikq8u6nd33s00bivvto2o2oogqanu.apps.googleusercontent.com",
           "client_type": 1,
